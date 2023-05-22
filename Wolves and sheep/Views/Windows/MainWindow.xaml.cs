@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Wolves_and_sheep.ViewModels;
 
 namespace Wolves_and_sheep
 {
@@ -23,6 +24,7 @@ namespace Wolves_and_sheep
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainViewModel();
         }
     }
 }

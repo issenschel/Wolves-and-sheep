@@ -40,7 +40,7 @@ namespace Wolves_and_sheep.ViewModels
         public ICommand CellCommand => cellCommand ??= new RelayCommand(parameter =>
         {
             Cell cell = (Cell)parameter;
-            Cell activeCell = Board.FirstOrDefault(x => x.Act);
+            Cell ?activeCell = Board.FirstOrDefault(x => x.Act);
             if (cell.Cellvalueenum != CellValueEnum.Empty)
             {
                 if (!cell.Act && activeCell != null)
