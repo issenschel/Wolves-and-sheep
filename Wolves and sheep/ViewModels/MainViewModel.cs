@@ -13,9 +13,9 @@ namespace Wolves_and_sheep.ViewModels
     public class MainViewModel : NotifyPropertyChanged
     {
         private Board board = new Board();
-        private ICommand newGameCommand;
-        private ICommand clearCommand;
-        private ICommand cellCommand;
+        private ICommand ?newGameCommand;
+        private ICommand ?clearCommand;
+        private ICommand ?cellCommand;
 
         public Board Board
         {
