@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Wolves_and_sheep.Models
 {
-    internal class CellValueEnum
+    public enum CellValueEnum
     {
+        Empty,
+        Sheep,
+        Wolf
     }
 }
