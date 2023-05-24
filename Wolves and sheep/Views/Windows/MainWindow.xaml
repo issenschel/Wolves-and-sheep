@@ -9,7 +9,7 @@
         xmlns:vm="clr-namespace:Wolves_and_sheep.ViewModels"
         xmlns:vmb="clr-namespace:Wolves_and_sheep.ViewModels.Base"
         mc:Ignorable="d"
-        Title="Шахматы" SizeToContent="WidthAndHeight" ResizeMode="CanMinimize"
+        Title="Волки и овцы" SizeToContent="WidthAndHeight" ResizeMode="CanMinimize"
         d:DataContext="{d:DesignInstance vm:MainViewModel, IsDesignTimeCreatable=True}"
         SnapsToDevicePixels="True">
     <Window.Resources>
