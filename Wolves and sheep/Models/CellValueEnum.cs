@@ -9,7 +9,7 @@ namespace Wolves_and_sheep.Models
     public enum CellValueEnum
     {
         Empty,
-        Sheep,
-        Wolf
+        WhiteSheep,
+        BlackWolf
     }
 }

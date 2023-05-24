@@ -38,11 +38,11 @@
         <ItemsControl Grid.Row="2" ItemsSource="{Binding Board}" AlternationCount="64" Grid.ColumnSpan="2" Margin="0,0,41,0" Grid.RowSpan="2">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button Width="60" Height="60" Command="{Binding DataContext.CellComand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}">
+                    <Button Width="60" Height="60" Command="{Binding DataContext.CellCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="OverridesDefaultStyle" Value="True"/>
-                                <Setter Property="Background" Value="WhiteSmoke"/>
+                                <Setter Property="Background" Value="GhostWhite"/>
                                 <Setter Property="BorderBrush" Value="{x:Null}"/>
                                 <Setter Property="BorderThickness" Value="2"/>
                                 <Setter Property="Template">
@@ -50,6 +50,7 @@
                                         <ControlTemplate>
                                             <Border Background="{TemplateBinding Background}">
                                                 <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+                                                    <local:Icons Icon="{Binding Cellvalueenum}"/>
                                                 </Border>
                                             </Border>
                                         </ControlTemplate>
@@ -57,7 +58,7 @@
                                 </Setter>
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding (ItemsControl.AlternationIndex) , RelativeSource={RelativeSource AncestorType=ContentPresenter},Converter={StaticResource CellColorConverter}}" Value="True">
-                                        <Setter Property="Background" Value="Black"/>
+                                        <Setter Property="Background" Value="BurlyWood"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding Act}" Value="True">
                                         <Setter Property="BorderBrush" Value="Red"/>
