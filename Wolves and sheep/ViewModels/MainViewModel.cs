@@ -59,11 +59,11 @@ namespace Wolves_and_sheep.ViewModels
         private void SetupBoard()
         {
             Board board = new Board();
-            board[0, 7] = CellValueEnum.BlackWolf;
-            board[7, 0] = CellValueEnum.WhiteSheep;
-            board[7, 2] = CellValueEnum.WhiteSheep;
-            board[7, 4] = CellValueEnum.WhiteSheep;
-            board[7, 6] = CellValueEnum.WhiteSheep;
+            board[7, 0] = CellValueEnum.BlackWolf;
+            board[0, 0] = CellValueEnum.WhiteSheep;
+            board[0, 2] = CellValueEnum.WhiteSheep;
+            board[0, 4] = CellValueEnum.WhiteSheep;
+            board[0, 6] = CellValueEnum.WhiteSheep;
             Board = board;
         }
 
