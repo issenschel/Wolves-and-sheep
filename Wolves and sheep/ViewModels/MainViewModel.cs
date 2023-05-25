@@ -60,10 +60,10 @@ namespace Wolves_and_sheep.ViewModels
         {
             Board board = new Board();
             board[7, 0] = CellValueEnum.BlackWolf;
-            board[0, 0] = CellValueEnum.WhiteSheep;
-            board[0, 2] = CellValueEnum.WhiteSheep;
-            board[0, 4] = CellValueEnum.WhiteSheep;
-            board[0, 6] = CellValueEnum.WhiteSheep;
+            board[0, 1] = CellValueEnum.WhiteSheep;
+            board[0, 3] = CellValueEnum.WhiteSheep;
+            board[0, 5] = CellValueEnum.WhiteSheep;
+            board[0, 7] = CellValueEnum.WhiteSheep;
             Board = board;
         }
 
