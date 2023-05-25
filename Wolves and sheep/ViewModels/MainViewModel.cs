@@ -16,6 +16,8 @@ namespace Wolves_and_sheep.ViewModels
         private ICommand ?newGameCommand;
         private ICommand ?clearCommand;
         private ICommand ?cellCommand;
+        private CellValueEnum currentPlayer = CellValueEnum.WhiteSheep;
+
 
         public Board Board
         {
@@ -40,7 +42,7 @@ namespace Wolves_and_sheep.ViewModels
         public ICommand CellCommand => cellCommand ??= new RelayCommand(parameter =>
         {
             Cell cell = (Cell)parameter;
-            Cell ?activeCell = Board.FirstOrDefault(x => x.Act);
+            Cell? activeCell = Board.FirstOrDefault(x => x.Act);
             if (cell.Cellvalueenum != CellValueEnum.Empty)
             {
                 if (!cell.Act && activeCell != null)
@@ -53,8 +55,9 @@ namespace Wolves_and_sheep.ViewModels
                 activeCell.Act = false;
                 cell.Cellvalueenum = activeCell.Cellvalueenum;
                 activeCell.Cellvalueenum = CellValueEnum.Empty;
+                currentPlayer = currentPlayer == CellValueEnum.WhiteSheep ? CellValueEnum.BlackWolf : CellValueEnum.WhiteSheep;
             }
-        }, parameter => parameter is Cell cell && (Board.Any(x => x.Act) || cell.Cellvalueenum != CellValueEnum.Empty));
+        }, parameter => parameter is Cell cell && (Board.Any(x => x.Act) || cell.Cellvalueenum != CellValueEnum.Empty && cell.Cellvalueenum == currentPlayer));
 
         private void SetupBoard()
         {
