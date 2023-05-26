@@ -11,6 +11,7 @@ namespace Wolves_and_sheep.Models
     public class Board : IEnumerable<Cell>
     {
         private readonly Cell[,] area;
+
         public CellValueEnum this[int row, int column]
         {
             get => area[row, column].Cellvalueenum;
@@ -19,16 +20,24 @@ namespace Wolves_and_sheep.Models
 
         public Board()
         {
-            area = new Cell[8,8];
+            area = new Cell[8, 8];
             for (int i = 0; i < area.GetLength(0); i++)
+            {
                 for (int j = 0; j < area.GetLength(1); j++)
-                    area[i, j] = new Cell();
+                {
+                    area[i, j] = new Cell(i, j, this);
+                }
+            }
         }
 
         public IEnumerator<Cell> GetEnumerator()
-            => area.Cast<Cell>().GetEnumerator();
+        {
+            return area.Cast<Cell>().GetEnumerator();
+        }
 
         IEnumerator IEnumerable.GetEnumerator()
-            => area.GetEnumerator();
+        {
+            return area.GetEnumerator();
+        }
     }
 }

@@ -49,8 +49,10 @@ namespace Wolves_and_sheep.ViewModels
                     activeCell.Act = false;
                 cell.Act = !cell.Act;
             }
-
-            else if (activeCell != null)
+            else if (activeCell != null &&
+                // проверяем, что выбранные клетки соседние
+                Math.Abs(activeCell.Row - cell.Row) == 1 &&
+                Math.Abs(activeCell.Column - cell.Column) == 1)
             {
                 activeCell.Act = false;
                 cell.Cellvalueenum = activeCell.Cellvalueenum;
@@ -62,11 +64,11 @@ namespace Wolves_and_sheep.ViewModels
         private void SetupBoard()
         {
             Board board = new Board();
-            board[7, 0] = CellValueEnum.BlackWolf;
-            board[0, 1] = CellValueEnum.WhiteSheep;
-            board[0, 3] = CellValueEnum.WhiteSheep;
-            board[0, 5] = CellValueEnum.WhiteSheep;
-            board[0, 7] = CellValueEnum.WhiteSheep;
+            board[7, 0] = CellValueEnum.WhiteSheep;
+            board[0, 1] = CellValueEnum.BlackWolf;
+            board[0, 3] = CellValueEnum.BlackWolf;
+            board[0, 5] = CellValueEnum.BlackWolf;
+            board[0, 7] = CellValueEnum.BlackWolf;
             Board = board;
         }
 
