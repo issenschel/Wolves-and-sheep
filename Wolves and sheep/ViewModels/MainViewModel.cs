@@ -31,6 +31,7 @@ namespace Wolves_and_sheep.ViewModels
         public ICommand NewGameCommand => newGameCommand ??= new RelayCommand(parameter =>
         {
             SetupBoard();
+            currentPlayer = CellValueEnum.WhiteSheep;
         });
 
         public ICommand CellCommand => cellCommand ??= new RelayCommand(parameter =>
