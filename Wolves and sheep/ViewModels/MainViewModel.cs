@@ -14,7 +14,6 @@ namespace Wolves_and_sheep.ViewModels
     {
         private Board board = new Board();
         private ICommand ?newGameCommand;
-        private ICommand ?clearCommand;
         private ICommand ?cellCommand;
         private CellValueEnum currentPlayer = CellValueEnum.WhiteSheep;
 
@@ -34,25 +33,19 @@ namespace Wolves_and_sheep.ViewModels
             SetupBoard();
         });
 
-        public ICommand ClearCommand => clearCommand ??= new RelayCommand(parameter =>
-        {
-            Board = new Board();
-        });
-
         public ICommand CellCommand => cellCommand ??= new RelayCommand(parameter =>
         {
             Cell cell = (Cell)parameter;
             Cell? activeCell = Board.FirstOrDefault(x => x.Act);
             if (cell.Cellvalueenum != CellValueEnum.Empty)
             {
-                if (!cell.Act && activeCell != null)
-                    activeCell.Act = false;
-                cell.Act = !cell.Act;
+                if (!cell.Act && (activeCell == null || cell == activeCell))
+                    cell.Act = true;
             }
             else if (activeCell != null &&
-                // проверяем, что выбранные клетки соседние
-                Math.Abs(activeCell.Row - cell.Row) == 1 &&
-                Math.Abs(activeCell.Column - cell.Column) == 1)
+            Math.Abs(activeCell.Row - cell.Row) == 1 &&
+            Math.Abs(activeCell.Column - cell.Column) == 1 &&
+            (currentPlayer == CellValueEnum.WhiteSheep || cell.Row > activeCell.Row))
             {
                 activeCell.Act = false;
                 cell.Cellvalueenum = activeCell.Cellvalueenum;
