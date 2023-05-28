@@ -67,6 +67,36 @@ namespace Wolves_and_sheep.ViewModels
                 {
                     currentPlayer = currentPlayer == CellValueEnum.WhiteSheep ? CellValueEnum.BlackWolf : CellValueEnum.WhiteSheep;
                 }
+                if (currentPlayer == CellValueEnum.WhiteSheep)
+                {
+                    if (!Board.Any(x => x.Cellvalueenum == CellValueEnum.Empty))
+                    {
+                        ShowEndGameMessage(true);
+                        SetupBoard();
+                        return;
+                    }
+                    bool isBlocked = true;
+                    foreach (Cell c in Board.Where(x => x.Cellvalueenum == CellValueEnum.WhiteSheep))
+                    {
+                        bool hasPossibleMoves = Board.Any(x =>
+                            x.Cellvalueenum == CellValueEnum.Empty &&
+                            Math.Abs(x.Row - c.Row) == 1 &&
+                            Math.Abs(x.Column - c.Column) == 1 &&
+                            (c.Row < x.Row));
+                        if (hasPossibleMoves)
+                        {
+                            isBlocked = false;
+                            break;
+                        }
+                    }
+
+                    if (isBlocked)
+                    {
+                        ShowEndGameMessage(true);
+                        SetupBoard();
+                        return;
+                    }
+                }
             }
         }, parameter => parameter is Cell cell && (Board.Any(x => x.Act) || cell.Cellvalueenum != CellValueEnum.Empty && cell.Cellvalueenum == currentPlayer));
         private void SetupBoard()
