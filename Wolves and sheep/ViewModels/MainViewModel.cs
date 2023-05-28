@@ -44,18 +44,13 @@ namespace Wolves_and_sheep.ViewModels
             {
                 if (!cell.Act && (activeCell == null || cell == activeCell))
                     cell.Act = true;
+                else
+                    cell.Act = false; // Добавлено для деактивации активной ячейки при повторном клике на неё
             }
             else if (activeCell != null &&
                 Math.Abs(activeCell.Row - cell.Row) == 1 &&
                 Math.Abs(activeCell.Column - cell.Column) == 1 &&
                 (currentPlayer == CellValueEnum.WhiteSheep || cell.Row > activeCell.Row))
-                if (currentPlayer == CellValueEnum.WhiteSheep && !Board.Any(cell => cell.Cellvalueenum == CellValueEnum.WhiteSheep && cell.Act) ||
-    currentPlayer == CellValueEnum.BlackWolf && !Board.Any(cell => cell.Cellvalueenum == CellValueEnum.BlackWolf && cell.Act))
-                {
-                    ShowEndGameMessage(true);
-                    SetupBoard();
-                    return;
-                }
             {
                 activeCell.Act = false;
                 cell.Cellvalueenum = activeCell.Cellvalueenum;
@@ -94,7 +89,7 @@ namespace Wolves_and_sheep.ViewModels
 
         public MainViewModel()
         {
-
+            SetupBoard();
         }
     }
 }
