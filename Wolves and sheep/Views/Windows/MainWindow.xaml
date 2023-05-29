@@ -12,6 +12,9 @@
         Title="Овца и волки" SizeToContent="WidthAndHeight" ResizeMode="CanMinimize"
         d:DataContext="{d:DesignInstance vm:MainViewModel, IsDesignTimeCreatable=True}"
         SnapsToDevicePixels="True">
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
     <Window.Resources>
         <c:CellColorConverter x:Key="CellColorConverter"/>
     </Window.Resources>

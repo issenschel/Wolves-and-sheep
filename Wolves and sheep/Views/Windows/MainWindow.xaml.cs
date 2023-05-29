@@ -24,7 +24,6 @@ namespace Wolves_and_sheep
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
         }
     }
 }
