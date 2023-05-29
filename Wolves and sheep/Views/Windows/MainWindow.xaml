@@ -4,9 +4,69 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Wolves_and_sheep"
+        xmlns:c="clr-namespace:Wolves_and_sheep.Convertor"
+        xmlns:m="clr-namespace:Wolves_and_sheep.Models"
+        xmlns:vm="clr-namespace:Wolves_and_sheep.ViewModels"
+        xmlns:vmb="clr-namespace:Wolves_and_sheep.ViewModels.Base"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Овца и волки" SizeToContent="WidthAndHeight" ResizeMode="CanMinimize"
+        d:DataContext="{d:DesignInstance vm:MainViewModel, IsDesignTimeCreatable=True}"
+        SnapsToDevicePixels="True">
+    <Window.Resources>
+        <c:CellColorConverter x:Key="CellColorConverter"/>
+    </Window.Resources>
+    <Grid Width="475">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <DockPanel>
+            <Menu DockPanel.Dock="Right" Background="White">
+                <MenuItem Header="Игра">
+                    <MenuItem Header="Новая игра" Command="{Binding NewGameCommand}"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+        <ItemsControl Grid.Row="2" ItemsSource="{Binding Board}" AlternationCount="64" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Width="60" Height="60" Command="{Binding DataContext.CellCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                                <Setter Property="Background" Value="GhostWhite"/>
+                                <Setter Property="BorderBrush" Value="{x:Null}"/>
+                                <Setter Property="BorderThickness" Value="2"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <Border Background="{TemplateBinding Background}">
+                                                <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+                                                    <local:Icons Icon="{Binding Cellvalueenum}"/>
+                                                </Border>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding (ItemsControl.AlternationIndex) , RelativeSource={RelativeSource AncestorType=ContentPresenter},Converter={StaticResource CellColorConverter}}" Value="True">
+                                        <Setter Property="Background" Value="BurlyWood"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Act}" Value="True">
+                                        <Setter Property="BorderBrush" Value="Red"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="8" Rows="8"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
 
     </Grid>
 </Window>

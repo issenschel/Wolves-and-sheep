@@ -12,19 +12,25 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Wolves_and_sheep.ViewModels;
+using Wolves_and_sheep.Models;
 
 namespace Wolves_and_sheep
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для Icons.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Icons : UserControl
     {
-        public MainWindow()
+        public static readonly DependencyProperty IconProperty = DependencyProperty.Register("Icon", typeof(CellValueEnum), typeof(Icons));
+
+        public CellValueEnum Icon
+        { 
+            get => (CellValueEnum)GetValue(IconProperty);
+            set => SetValue(IconProperty, value);
+        }
+        public Icons()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
         }
     }
 }
