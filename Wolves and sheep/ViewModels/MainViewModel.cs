@@ -13,11 +13,10 @@ namespace Wolves_and_sheep.ViewModels
 {
     public class MainViewModel : NotifyPropertyChanged
     {
-        private Board board = new Board();
+        private Board board = new ();
         private ICommand ?newGameCommand;
         private ICommand ?cellCommand;
         private CellValueEnum currentPlayer = CellValueEnum.WhiteSheep;
-
 
         public Board Board
         {
@@ -45,7 +44,7 @@ namespace Wolves_and_sheep.ViewModels
                 if (!cell.Act && (activeCell == null || cell == activeCell))
                     cell.Act = true;
                 else
-                    cell.Act = false; // Добавлено для деактивации активной ячейки при повторном клике на неё
+                    cell.Act = false; 
             }
             else if (activeCell != null &&
                 Math.Abs(activeCell.Row - cell.Row) == 1 &&
@@ -56,13 +55,11 @@ namespace Wolves_and_sheep.ViewModels
                 cell.Cellvalueenum = activeCell.Cellvalueenum;
                 activeCell.Cellvalueenum = CellValueEnum.Empty;
 
-                // Проверка на окончание игры
                 if (cell.Row == 0)
                 {
                     ShowEndGameMessage(false);
                     SetupBoard();
                 }
-
                 else
                 {
                     currentPlayer = currentPlayer == CellValueEnum.WhiteSheep ? CellValueEnum.BlackWolf : CellValueEnum.WhiteSheep;
@@ -84,8 +81,7 @@ namespace Wolves_and_sheep.ViewModels
 
             bool hasPossibleMoves1 = Board.Any(x =>
             x.Cellvalueenum == CellValueEnum.WhiteSheep &&
-            (Board.Any(y =>
-            y.Cellvalueenum == CellValueEnum.Empty &&
+            (Board.Any(y => y.Cellvalueenum == CellValueEnum.Empty &&
             Math.Abs(y.Row - x.Row) == 1 &&
             Math.Abs(y.Column - x.Column) == 1) || Board.Any(y =>
             y.Cellvalueenum == CellValueEnum.BlackWolf &&
@@ -99,9 +95,10 @@ namespace Wolves_and_sheep.ViewModels
             }
 
         }, parameter => parameter is Cell cell && (Board.Any(x => x.Act) || cell.Cellvalueenum != CellValueEnum.Empty && cell.Cellvalueenum == currentPlayer));
+
         private void SetupBoard()
         {
-            Board board = new Board();
+            Board board = new ();
             board[7, 0] = CellValueEnum.WhiteSheep;
             board[0, 1] = CellValueEnum.BlackWolf;
             board[0, 3] = CellValueEnum.BlackWolf;
@@ -110,7 +107,7 @@ namespace Wolves_and_sheep.ViewModels
             Board = board;
         }
 
-        public void ShowEndGameMessage(bool isSheepWinner)
+        public static void ShowEndGameMessage(bool isSheepWinner)
         {
             string winner = isSheepWinner ? "Чёрные волки" : "Белая овца";
 
