@@ -67,30 +67,13 @@ namespace Wolves_and_sheep.ViewModels
                 {
                     currentPlayer = currentPlayer == CellValueEnum.WhiteSheep ? CellValueEnum.BlackWolf : CellValueEnum.WhiteSheep;
                 }
-                if (currentPlayer == CellValueEnum.WhiteSheep)
+                if (currentPlayer == CellValueEnum.BlackWolf)
                 {
-                    if (!Board.Any(x => x.Cellvalueenum == CellValueEnum.Empty))
-                    {
-                        ShowEndGameMessage(true);
-                        SetupBoard();
-                        return;
-                    }
-                    bool isBlocked = true;
-                    foreach (Cell c in Board.Where(x => x.Cellvalueenum == CellValueEnum.WhiteSheep))
-                    {
-                        bool hasPossibleMoves = Board.Any(x =>
-                            x.Cellvalueenum == CellValueEnum.Empty &&
-                            Math.Abs(x.Row - c.Row) == 1 &&
-                            Math.Abs(x.Column - c.Column) == 1 &&
-                            (c.Row < x.Row));
-                        if (hasPossibleMoves)
-                        {
-                            isBlocked = false;
-                            break;
-                        }
-                    }
-
-                    if (isBlocked)
+                    bool hasPossibleMoves = Board.Any(x =>
+                    x.Cellvalueenum == CellValueEnum.Empty &&
+                    Math.Abs(x.Row - cell.Row) == 1 &&
+                    Math.Abs(x.Column - cell.Column) == 1);
+                    if (!hasPossibleMoves)
                     {
                         ShowEndGameMessage(true);
                         SetupBoard();
@@ -98,6 +81,23 @@ namespace Wolves_and_sheep.ViewModels
                     }
                 }
             }
+
+            bool hasPossibleMoves1 = Board.Any(x =>
+            x.Cellvalueenum == CellValueEnum.WhiteSheep &&
+            (Board.Any(y =>
+            y.Cellvalueenum == CellValueEnum.Empty &&
+            Math.Abs(y.Row - x.Row) == 1 &&
+            Math.Abs(y.Column - x.Column) == 1) || Board.Any(y =>
+            y.Cellvalueenum == CellValueEnum.BlackWolf &&
+            Math.Abs(y.Row - x.Row) <= 0 &&
+            Math.Abs(y.Column - x.Column) <= 0)));
+
+            if (!hasPossibleMoves1)
+            {
+                ShowEndGameMessage(true);
+                SetupBoard();
+            }
+
         }, parameter => parameter is Cell cell && (Board.Any(x => x.Act) || cell.Cellvalueenum != CellValueEnum.Empty && cell.Cellvalueenum == currentPlayer));
         private void SetupBoard()
         {
